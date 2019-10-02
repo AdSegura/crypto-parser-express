@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const dist_1 = require("../../../dist/");
+const path = require("path");
+const { CryptoCookie } = require(process.env.Root + '/dist');
 const http = require('http');
 const uuid = require('uuid/v1');
 class ExpressServer {
     constructor(options) {
         this.options = Object.assign({}, options);
         this.options.cookie.options = ExpressServer.cookie_params(this.options.cookie.options);
-        const cryptoCookie = new dist_1.CryptoCookie(this.options);
+        const cryptoCookie = new CryptoCookie(this.options);
         this.app = cryptoCookie.overrideCookie(express());
         this.server_id = ExpressServer.setServerId(this.options.server_id);
         this.app.use((req, res, next) => {

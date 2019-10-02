@@ -1,5 +1,5 @@
 import {describe} from 'mocha';
-
+process.env.Root = require('../../settings.js').Root;
 import errors from "./suites/errors.test";
 import class_test from "./suites/class.test";
 import suite from "./suites/expressServer.test";

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mocha_1 = require("mocha");
+process.env.Root = require('../../settings.js').Root;
 const errors_test_1 = require("./suites/errors.test");
 const class_test_1 = require("./suites/class.test");
 const expressServer_test_1 = require("./suites/expressServer.test");

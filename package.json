@@ -9,10 +9,10 @@
   "description": "Express Response Cookie override to add crypto cookie and cookie-parser module replacement",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && tsc -p tests/",
-    "build-test": "tsc -p tests/",
+    "build": "tsc && tsc -p tests/src",
+    "build-test": "tsc -p tests/src",
     "dev": "tsc -w",
-    "test": "NODE_ENV=test node_modules/.bin/_mocha --exit -r dist/tests/lib/spec-helper.js dist/tests/index.js"
+    "test": "NODE_ENV=test node_modules/.bin/_mocha --exit -r tests/dist/lib/spec-helper.js tests/dist"
   },
   "author": "Adolfo Segura Hall",
   "license": "MIT",

@@ -5,7 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "outDir": "../dist/tests",
+    "outDir": "../dist",
     "pretty": true,
     "preserveConstEnums": true,
     "removeComments": true,

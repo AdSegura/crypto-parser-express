@@ -1,8 +1,8 @@
-import * as path from "path";
 import * as express from "express";
 import * as bodyParser   from "body-parser";
-// @ts-ignore
-import {CryptoCookie} from "../../../dist/";
+//import {CryptoCookie} from "../../../dist/";
+const path = require("path");
+const {CryptoCookie} = require(process.env.Root + '/dist');
 const http = require('http');
 const uuid = require('uuid/v1');
 
