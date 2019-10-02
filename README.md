@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/adsegura/crypto-parser-express.svg?branch=master)](https://travis-ci.org/adsegura/crypto-parser-express)
+
 # crypto-parser-express
 
 # Not for Prod, on WIP mode.
@@ -38,6 +40,22 @@ const options = {
 # Tests
 ```bash
 > npm run test
+
+Class CryptoCookie
+    ✓ should return express instance with cookie method overridden
+
+  Test Errors...
+    ✓ should throw Error 'overrideCookie express argument not an express instance' when trying to override Cookie method on non express instance
+
+  Express cookie override
+    ✓ should receive cipher cookie with name fooBarCookie (46ms)
+    ✓ should send cipher cookie and cookieParser should decipher it
+    ✓ should res.cookie not populate response Headers Set-Cookie when cookie name is not allowed 
+    ✓ should server res.cookie populate response Headers Set-Cookie when cookie name is not allowed and allow_all = true
+    ✓ should client send not allowed cookie and cookieParser should discard
+    ✓ should client send not allowed cookie when allow_all option true and should not decipher but should be parsed in req.cookies
+
+  8 passing (91ms)
 ```
 
 

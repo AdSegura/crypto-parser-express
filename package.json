@@ -16,16 +16,16 @@
   "author": "Adolfo Segura Hall",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^12.7.8",
+    "@types/node": "^12.7.9",
+    "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^6.2.1",
-    "ts-node": "^8.4.1",
-    "typescript": "^2.9.2",
-    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "mocha": "^6.2.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^2.9.2",
     "uuid": "^3.3.3"
   },
   "dependencies": {
