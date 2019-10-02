@@ -44,8 +44,10 @@ export class ExpressServer {
         this.server_id = ExpressServer.setServerId(this.options.server_id);
 
         this.app.use((req, res, next) => {
-            res.cookie('fooBarCookie', this.getServerId(), this.options.cookie.options);
-            next()
+            res.cookie_async('fooBarCookie', this.getServerId(), this.options.cookie.options)
+                .then(() => {
+                    next()
+                }).catch(e => {throw e;})
         });
 
         this.app.use(cryptoCookie.cookieParser())
@@ -74,6 +76,24 @@ export class ExpressServer {
             '/notallowedcookie',
             (req, res, next) => this.getSetNotAlloweCookie(req, res, next)
         );
+
+        this.app.get(
+            '/make_cookie',
+            (req, res, next) => this.getMakeCookie(req, res, next)
+        );
+    }
+
+    private getMakeCookie(req: any, res: any, next: any) {
+        let value;
+
+        if(req.query.mode === 'object')
+            value = {hello: "world"};
+        else
+            value = 'no brain';
+
+        res.cookie(req.query.name, value, this.options.cookie.options);
+
+        typeof value === 'object' ? res.json(value) : res.send(value);
     }
 
     getRoot(req: any, res: any, next: any) {
@@ -223,4 +243,5 @@ export class ExpressServer {
             res.cookie(name, payload, this.options.cookie);
         }
     }
+
 }

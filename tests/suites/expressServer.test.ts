@@ -12,8 +12,9 @@ const server_id = uuid();
 
 const cookie_name = 'fooBarCookie';
 const cookie_name1 = 'kokoa';
+const supercookie_name = 'supercookie';
 
-const allowed = [cookie_name, cookie_name1];
+const allowed = [cookie_name, cookie_name1, supercookie_name];
 
 const parseCookies = (str) => {
     if(typeof str === 'object' && str.length >= 0){
@@ -54,24 +55,27 @@ const decipher = (encrypted) => {
 
 export default function suite() {
 
-   it(`should receive cipher cookie with name ${cookie_name}`, done => {
+    it(`should client get cipher cookie with name ${supercookie_name} using res.cookie method overridden`, async () => {
         const server = new ExpressServer(options());
-
-        const requester = chai.request.agent(server).keepOpen();
-
-        requester.get('/')
-            .then(response => {
-                const cookies = cookie.parse(response.res.headers['set-cookie'][0]);
-                const deciphered = decipher(cookies[cookie_name]);
-                expect(deciphered).equal(server_id)
-            })
-            .then(() => {
-                requester.close();
-                done();
-            })
+        const agent = chai.request.agent(server);
+        const request = await agent.get('/make_cookie?name=supercookie&mode=object');
+        const response = JSON.parse(request.res.text);
+        const cookies = cookie.parse(request.res.headers['set-cookie'][1]);
+        const deciphered = decipher(cookies[supercookie_name]);
+        expect(deciphered).to.eql(response); //finally I know I can compare objects :)
     });
 
-     it('should send cipher cookie and cookieParser should decipher it', async () => {
+   it(`should client get cipher cookie with name ${cookie_name} using res.cookie_async`, async () => {
+        const server = new ExpressServer(options());
+        const agent = chai.request.agent(server);
+        const request = await agent.get('/');
+        const cookies = cookie.parse(request.res.headers['set-cookie'][0]);
+        const deciphered = decipher(cookies[cookie_name]);
+        expect(deciphered).equal(server_id);
+    });
+
+
+     it('should client send cipher cookie and cookieParser should decipher it', async () => {
         const server = new ExpressServer(options());
         const agent = chai.request.agent(server);
         const request = await agent.get('/');
@@ -80,7 +84,7 @@ export default function suite() {
         expect(second_request.res.text).equal(server_id)
      });
 
-    it('should res.cookie not populate response Headers Set-Cookie when cookie name is not allowed ', async () => {
+    it('should server res.cookie not populate response Headers Set-Cookie when cookie name is not allowed ', async () => {
         const server = new ExpressServer(options());
         const agent = chai.request.agent(server);
         const request = await agent.get('/notallowedcookie');

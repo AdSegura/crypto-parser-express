@@ -33,7 +33,7 @@ const options = () => {
 };
 
 export default function suite() {
-    it("should throw Error '\x1b[36moverrideCookie express argument not an express instance\x1b[90m' when trying to override Cookie method on non express instance", async () => {
+    it("should throw Error 'overrideCookie express argument not an express instance' when trying to override Cookie method on non express instance", async () => {
         const error = 'overrideCookie express argument not an express instance';
         const cryptoCookie = new CryptoCookie(options());
         try {
