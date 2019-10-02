@@ -6,7 +6,22 @@
 Express Response Cookie override to add crypto cookie support
 and cookie-parser module replacement.
 
-crypto-parser-express use `node-laravel-encryptor` to cipher/decipher cookies with signature verification support [TODO]
+crypto-parser-express use `node-laravel-encryptor` to cipher/decipher cookies with signature verification support
+
+# Features
+* cipher/decipher cookies with
+    * res.cookies
+    * res.cookies_async
+* Laravel Cookie Compatible `>=5.4` if serialize_mode `php` (default mode `node-laravel-encryptor`)
+* only parse allowed cookies.
+* only decipher encrypted cookie payload instead of every cookie params [path, domain, expires, secure, etc].
+* option to allow all cookies, only allowed cookies will be deciphered. 
+  
+
+## Install
+```sh
+$> npm i crypto-parser-express
+```
 
 ## Prerequisites
 * NodeJs `>=v8.16.1 (npm v6.4.1)`
@@ -41,21 +56,26 @@ const options = {
 ```bash
 > npm run test
 
-Class CryptoCookie
-    ✓ should return express instance with cookie method overridden
+  Class CryptoCookie
+    ✓ should return express instance with res.cookie method overridden
+    ✓ should return express instance with res.cookie_async new method
 
   Test Errors...
     ✓ should throw Error 'overrideCookie express argument not an express instance' when trying to override Cookie method on non express instance
 
   Express cookie override
-    ✓ should receive cipher cookie with name fooBarCookie (46ms)
-    ✓ should send cipher cookie and cookieParser should decipher it
-    ✓ should res.cookie not populate response Headers Set-Cookie when cookie name is not allowed 
+    ✓ should client send cipher cookie and cookieParser should decipher it (59ms)
+    ✓ should server res.cookie not populate response Headers Set-Cookie when cookie name is not allowed 
     ✓ should server res.cookie populate response Headers Set-Cookie when cookie name is not allowed and allow_all = true
     ✓ should client send not allowed cookie and cookieParser should discard
     ✓ should client send not allowed cookie when allow_all option true and should not decipher but should be parsed in req.cookies
 
-  8 passing (91ms)
+  Express response res.cookie method and res.cookie_async method
+    ✓ should client get cipher cookie using res.cookie_async
+    ✓ should client get cipher cookie using res.cookie method overridden
+
+
+  10 passing (114ms)
 ```
 
 

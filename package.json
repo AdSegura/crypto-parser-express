@@ -1,6 +1,6 @@
 {
   "name": "crypto-parser-express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "node": ">=8.16.1",
     "npm": ">=6.4.1",
@@ -38,9 +38,9 @@
     "cookie",
     "cookie-parser"
   ],
-  "homepage": "https://github.com/AdSegura/crypto-parser-express/blob/master/README.md",
+  "homepage": "https://github.com/adsegura/crypto-parser-express/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AdSegura/crypto-parser-express.git"
+    "url": "git+https://github.com/adsegura/crypto-parser-express.git"
   }
 }
