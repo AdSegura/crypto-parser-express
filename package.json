@@ -1,0 +1,46 @@
+{
+  "name": "crypto-parser-express",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=8.16.1",
+    "npm": ">=6.4.1",
+    "express": ">=4.1.1"
+  },
+  "description": "Express Response Cookie override to add crypto cookie and cookie-parser module replacement",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "NODE_ENV=test node_modules/.bin/_mocha --exit --require ts-node/register tests/index.ts"
+  },
+  "author": "Adolfo Segura Hall",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.7.8",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^2.9.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
+  },
+  "dependencies": {
+    "node-laravel-encryptor": "^2.0.4"
+  },
+  "keywords": [
+    "laravel",
+    "crypto",
+    "nodejs",
+    "cookie",
+    "cookie-parser"
+  ],
+  "homepage": "https://github.com/AdSegura/crypto-parser-express/blob/master/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdSegura/crypto-parser-express.git"
+  }
+}
