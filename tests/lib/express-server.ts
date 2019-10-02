@@ -1,7 +1,8 @@
 import * as path from "path";
 import * as express from "express";
 import * as bodyParser   from "body-parser";
-import {CryptoCookie} from "../../src";
+// @ts-ignore
+import {CryptoCookie} from "../../../dist/";
 const http = require('http');
 const uuid = require('uuid/v1');
 

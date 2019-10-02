@@ -1,7 +1,8 @@
 const {it} = require("mocha");
 const {expect} = require("chai");
 const express = require('express');
-import {CryptoCookie} from "../../src";
+// @ts-ignore
+import {CryptoCookie} from "../../../dist/";
 import {Helper} from "./lib/helper";
 const helper = new Helper();
 

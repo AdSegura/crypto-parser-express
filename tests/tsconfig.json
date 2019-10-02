@@ -5,7 +5,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "outDir": "./dist",
+    "outDir": "../dist/tests",
     "pretty": true,
     "preserveConstEnums": true,
     "removeComments": true,
@@ -14,7 +14,10 @@
     "types": ["node"]
   },
   "files": [
-    "src/index.ts"
+    "./index.ts"
+  ],
+  "include": [
+    "./lib/spec-helper.js"
   ],
   "exclude": [
     "node_modules"
