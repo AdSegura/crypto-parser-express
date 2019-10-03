@@ -3,11 +3,11 @@ const {expect} = require("chai");
 const chai = require("chai");
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-import {ExpressServer} from "../lib/express-server";
-import {Helper} from "./lib/helper";
+const {ExpressServer} = require('../lib/express-server');
+const {Helper} = require("./lib/helper");
 const helper = new Helper();
 
-export default function suite() {
+module.exports = function suite() {
      it('should client send cipher cookie and cookieParser should decipher it', async () => {
         const server = new ExpressServer(helper.options());
         const agent = chai.request.agent(server);

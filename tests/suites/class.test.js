@@ -1,12 +1,11 @@
 const {it} = require("mocha");
 const {expect} = require("chai");
 const express = require('express');
-//import {CryptoCookie} from "../../../dist/";
-const {CryptoCookie} = require(process.env.Root + '/dist');
-import {Helper} from "./lib/helper";
+const {CryptoCookie} = require('../../dist');
+const {Helper} = require("./lib/helper");
 const helper = new Helper();
 
-export default function suite() {
+module.exports = function suite() {
     it('should return express instance with res.cookie method overridden', async () => {
         const cryptoCookie = new CryptoCookie(helper.options());
         const app = cryptoCookie.overrideCookie(express());

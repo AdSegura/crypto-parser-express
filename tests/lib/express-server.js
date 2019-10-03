@@ -1,39 +1,13 @@
-import * as express from "express";
-import * as bodyParser   from "body-parser";
-//import {CryptoCookie} from "../../../dist/";
+const express = require("express");
+const bodyParser   = require("body-parser");
 const path = require("path");
-const {CryptoCookie} = require(process.env.Root + '/dist');
+const {CryptoCookie} = require('../../dist');
 const http = require('http');
 const uuid = require('uuid/v1');
 
-interface Cookie_options{
-    name: string,
-    options: {
-        cipher: boolean,
-        decipher: boolean,
-        secure: boolean,
-        httpOnly: boolean,
-        domain: string,
-        path: string,
-        signed: boolean,
-        sameSite: string,
-        expires: Date,
-    }
-}
+exports.ExpressServer =  class ExpressServer {
 
-interface Options{
-    server_id?: string,
-    cookie?: Cookie_options,
-}
-
-export class ExpressServer {
-    app: any;
-    public server: any;
-    protected server_id: any;
-    private options: any;
-
-
-    constructor(options: any) {
+    constructor(options) {
         this.options = Object.assign({}, options);
 
         this.options.cookie.options = ExpressServer.cookie_params(this.options.cookie.options);
@@ -84,7 +58,7 @@ export class ExpressServer {
         );
     }
 
-    private getMakeCookie(req: any, res: any, next: any) {
+    getMakeCookie(req, res, next) {
         let value;
 
         if(req.query.mode === 'object')
@@ -97,24 +71,24 @@ export class ExpressServer {
         typeof value === 'object' ? res.json(value) : res.send(value);
     }
 
-    getRoot(req: any, res: any, next: any) {
+    getRoot(req, res, next) {
         res.cookie('kokoa', '22', this.options.cookie.options);
         res.json({id: this.getServerId()});
     }
 
-    getCookies(req: any, res: any, next: any) {
+    getCookies(req, res, next) {
         //console.log(req.cookies)
         res.send(req.cookies['fooBarCookie']);
     }
 
-    getUnwantedCookies(req: any, res: any, next: any) {
+    getUnwantedCookies(req, res, next) {
         if((Object.keys(req.cookies)).length === 0)
             return res.send('no cookies');
 
         res.send(req.cookies[(Object.keys(req.cookies))[0]]);
     }
 
-    getSetNotAlloweCookie(req: any, res: any, next: any) {
+    getSetNotAlloweCookie(req, res, next) {
         res.cookie('notAllowedCookie', 'foo', this.options.cookie.options);
         res.send('NotAlloweCookie');
     }
@@ -124,7 +98,7 @@ export class ExpressServer {
      * Log Error and Next
      * @param next
      */
-    private static errorAndNext(next) {
+     static errorAndNext(next) {
         return (error) => {
             console.error(error);
             next(error);
@@ -137,7 +111,7 @@ export class ExpressServer {
      * @param res
      * @param next
      */
-    private responseCookie(name, res, next) {
+     responseCookie(name, res, next) {
         return (enc) => {
             this.setCookie(name, res)(enc);
             next();
@@ -145,13 +119,13 @@ export class ExpressServer {
     }
 
 
-    private middleware(): void {
+     middleware() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
 
-    listen(): any {
+    listen() {
         this.middleware();
 
         this.app.use(ExpressServer.logErrors);
@@ -174,7 +148,7 @@ export class ExpressServer {
         return this.server.address();
     }
 
-    close(cb?: any) {
+    close(cb) {
         this.server.close(cb);
     }
 
@@ -203,7 +177,7 @@ export class ExpressServer {
         return this.server_id;
     }
 
-    static setServerId(id?: string) {
+    static setServerId(id) {
         if(! id) return uuid();
         return id;
     }
@@ -214,7 +188,7 @@ export class ExpressServer {
      * @param opt
      */
 
-    static cookie_params(opt?: any): Cookie_options {
+    static cookie_params(opt) {
 
         let options = opt || {};
 
@@ -239,10 +213,9 @@ export class ExpressServer {
      * @param name
      * @param res
      */
-    private setCookie(name, res) {
+     setCookie(name, res) {
         return (payload) => {
             res.cookie(name, payload, this.options.cookie);
         }
     }
-
 }

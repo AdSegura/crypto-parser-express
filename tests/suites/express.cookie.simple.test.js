@@ -1,14 +1,14 @@
-import {ExpressServer} from "../lib/express-server";
+const {ExpressServer} = require("../lib/express-server");
 const {it} = require("mocha");
 const {expect} = require("chai");
 const chai = require("chai");
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const cookie = require('cookie');
-import {Helper} from "./lib/helper";
+const {Helper} = require("./lib/helper");
 const helper = new Helper();
 
-export default function suite() {
+module.exports = function suite() {
     it(`should client get cipher cookie using res.cookie_async`, async () => {
         const server = new ExpressServer(helper.options());
         const agent = chai.request.agent(server);
