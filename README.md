@@ -2,11 +2,14 @@
 
 # crypto-parser-express
 
-# Not for Prod, on WIP mode.
-Express Response Cookie override to add crypto cookie support
+Express `>=v4.10.0` Response Cookie override to add crypto cookie support
 and cookie-parser module replacement.
 
-crypto-parser-express use `node-laravel-encryptor` to cipher/decipher cookies with signature verification support
+crypto-parser-express use `node-laravel-encryptor` to cipher/decipher cookies
+with signature verification support.
+
+This module borrows parts of cookieParse and parse methods from [cookie-parser module](https://github.com/expressjs/cookie-parser#readme) 
+kudos to that dev.
 
 # Features
 * cipher/decipher cookies with
@@ -51,6 +54,9 @@ const options = {
   }
 }
 ```
+
+### Encryptor options
+[node-laravel-encryptor](https://github.com/adsegura/node-laravel-encryptor/blob/master/README.md)
 
 # Tests
 ```bash

@@ -32,6 +32,11 @@ export class CryptoCookie {
        return this.parser.cookieParser()
     }
 
+    /**
+     * check if a valid express instance
+     *
+     * @param express_instance
+     */
    static validExpressInstance(express_instance){
         return express_instance.constructor.name === 'EventEmitter' &&
             express_instance.hasOwnProperty('mountpath') &&

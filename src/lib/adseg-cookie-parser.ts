@@ -40,6 +40,8 @@ export class AdsegCookieParser {
 
     /**
      * Cookie Parser
+     * original cookieParser method from cookie-parser module
+     *  with added function to decode only what we allow
      */
     cookieParser() {
         return (req, res, next) => {
@@ -64,7 +66,8 @@ export class AdsegCookieParser {
 
     /**
      * Parser
-     *
+     *  original parse method from cookie-parser module
+     *  with added function to decode only what we allow
      * @param str
      */
     static parse(str) {
@@ -103,7 +106,6 @@ export class AdsegCookieParser {
                 }
             }
         }
-
         return obj;
     }
 }

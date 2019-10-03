@@ -1,3 +1,6 @@
+# v1.0.3
+* tests without ts
+
 # v1.0.2
 * compile tests on dist so we can run tests without ts-node
 

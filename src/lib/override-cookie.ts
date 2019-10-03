@@ -13,6 +13,8 @@ export class OverrideCookie {
     /**
      * Override express response cookie method
      *
+     * Add cookie_async method to response
+     *
      * @param express_instance
      */
     cookieMethod(express_instance) {
@@ -20,6 +22,13 @@ export class OverrideCookie {
 
         const express_cookie = express_instance.response.cookie;
 
+        /**
+         * Create new res.cookie_async method
+         *
+         * @param name
+         * @param value
+         * @param opt
+         */
         express_instance.response.cookie_async = async function(name, value, opt) {
             opt = OverrideCookie.prepareOpt(opt);
 
@@ -35,6 +44,13 @@ export class OverrideCookie {
             return this;
         };
 
+        /**
+         * Override res.cookie method
+         *
+         * @param name
+         * @param value
+         * @param opt
+         */
         express_instance.response.cookie = function (name, value, opt) {
             opt = OverrideCookie.prepareOpt(opt);
 
@@ -53,6 +69,11 @@ export class OverrideCookie {
         return express_instance;
     }
 
+    /**
+     * prepare cookie options
+     *
+     * @param opt
+     */
     private static prepareOpt(opt?: any){
         opt = opt ||  {};
 
