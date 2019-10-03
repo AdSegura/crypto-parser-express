@@ -25,7 +25,7 @@ $> npm i crypto-parser-express
 
 ## Prerequisites
 * NodeJs `>=v8.10.0 (npm v5.6.0)`
-* expressJS `>=v4.1.1`
+* expressJS `>=v4.10.0`
 
 # Usage
 ```js
