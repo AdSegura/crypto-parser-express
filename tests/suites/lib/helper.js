@@ -6,11 +6,7 @@ const supercookie_name = 'supercookie';
 const uuid = require('uuid/v1');
 
 exports.Helper = class Helper {
-  /* private static allowed_cookies = [cookie_name, cookie_name1, supercookie_name];
-   public cookies_allowed = [];
-   public server_id;
-   public key: any;
-*/
+
    constructor(allowed){
        this.server_id = uuid();
        this.cookies_allowed = allowed || Helper.allowed_cookies();
@@ -52,4 +48,24 @@ exports.Helper = class Helper {
             return cookie.parse(str);
         }
     };
+
+    static decomposeCookie(str) {
+        if (typeof str !== 'string')
+            throw Error('decomposeCookie str needs to be a string');
+
+        return Buffer.from(str, 'base64').toString();
+    }
+
+    static recomposeCookie(str) {
+        if (typeof str !== 'object')
+            throw Error('recomposeCookie str needs to be an object');
+
+        return Buffer.from(JSON.stringify(str), 'utf8').toString('base64');
+    }
+
+    static alterMac(obj){
+        const o = Object.assign({}, JSON.parse(obj));
+        o.mac = 'lskjdlsdllsjdl';
+        return o;
+    }
 }

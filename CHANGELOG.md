@@ -1,3 +1,6 @@
+# v1.0.4
+* tests MAC signature tampered
+
 # v1.0.3
 * tests without ts
 

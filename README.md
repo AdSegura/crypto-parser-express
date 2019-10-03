@@ -1,9 +1,11 @@
 [![Build Status](https://api.travis-ci.org/adsegura/crypto-parser-express.svg?branch=master)](https://travis-ci.org/adsegura/crypto-parser-express)
+[![npm version](https://badge.fury.io/js/crypto-parser-express.svg)](https://badge.fury.io/js/crypto-parser-express)
+[![node version](https://badgen.net/badge/node/%3E=8.10.0/green)](https://badgen.net/badge/node/%3E=8.10.0/green)
 
 # crypto-parser-express
 
 Express `>=v4.10.0` Response Cookie override to add crypto cookie support
-and cookie-parser module replacement.
+and cookie-parser middleware module replacement.
 
 crypto-parser-express use `node-laravel-encryptor` to cipher/decipher cookies
 with signature verification support.
@@ -35,8 +37,12 @@ $> npm i crypto-parser-express
 const express = require('express');
 const CryptoCookieParser = require('crypto-parser-express');
 const cryptoCookieParser = new CryptoCookieParser(options);
+
 //instead of const app = express();
 const app = cryptoCookieParser.overrideCookie(express());
+
+//use custom cookieParser middleware
+app.use(cryptoCookieParser.cookieParser())
 ```
 
 ### Options
@@ -47,16 +53,25 @@ const options = {
       allow_all: false,
       allowed: ['session', 'superCookie'],
       options: {
+          domain: 'localhost',
+          expires: 0,
+          maxAge: 60*60*1000,
+          path: '/',
+          sameSite: true,
           secure: false,
-          httpOnly: false,
-          ....
+          httpOnly: false
       }
   }
 }
 ```
 
+## Options 
 ### Encryptor options
 [node-laravel-encryptor](https://github.com/adsegura/node-laravel-encryptor/blob/master/README.md)
+### Cookie options
+* allow_all: `<boolean>` [default] `false`
+* allowed:   `<array>` list allowed cookie name
+* options: `npm cookie package` options 
 
 # Tests
 ```bash
@@ -68,9 +83,10 @@ const options = {
 
   Test Errors...
     ✓ should throw Error 'overrideCookie express argument not an express instance' when trying to override Cookie method on non express instance
+    ✓ should Throw Error MAC signature failed (53ms)
 
   Express cookie override
-    ✓ should client send cipher cookie and cookieParser should decipher it (59ms)
+    ✓ should client send cipher cookie and cookieParser should decipher it
     ✓ should server res.cookie not populate response Headers Set-Cookie when cookie name is not allowed 
     ✓ should server res.cookie populate response Headers Set-Cookie when cookie name is not allowed and allow_all = true
     ✓ should client send not allowed cookie and cookieParser should discard
@@ -80,8 +96,7 @@ const options = {
     ✓ should client get cipher cookie using res.cookie_async
     ✓ should client get cipher cookie using res.cookie method overridden
 
-
-  10 passing (114ms)
+  11 passing (112ms)
 ```
 
 

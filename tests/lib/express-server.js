@@ -154,7 +154,7 @@ exports.ExpressServer =  class ExpressServer {
 
 
     static logErrors(err, req, res, next) {
-        console.error(err.stack);
+        //console.error(err.stack);
         next(err)
     }
 
@@ -167,10 +167,10 @@ exports.ExpressServer =  class ExpressServer {
     }
 
     static errorHandler(err, req, res, next) {
-        if (process.env.NODE_ENV !== 'development')
-            return res.status(500).send({error: 'Something failed!'});
+        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test')
+                return  res.status(500).send({error: err.stack})
 
-        res.status(500).send({error: err.stack})
+        res.status(500).send({error: 'Something failed!'});
     }
 
     getServerId() {
